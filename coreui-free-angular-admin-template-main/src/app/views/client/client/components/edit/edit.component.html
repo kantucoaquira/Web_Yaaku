@@ -1,0 +1,56 @@
+<p class="text-center text-primary fw-bold">Editar Cliente</p>
+
+<c-card class="mb-4">
+  <c-card-header class="bg-light">
+    <strong>Formulario de Cliente</strong> <small>Complete los datos</small>
+  </c-card-header>
+
+  <c-card-body>
+    <form [formGroup]="clientForm">
+      <c-row class="gy-3">
+        <c-col md="6">
+          <label class="fw-bold">Nombre:</label>
+          <input
+            cFormControl
+            formControlName="name"
+            type="text"
+            placeholder="Ingrese el nombre"
+            class="form-control"
+          />
+        </c-col>
+
+        <c-col md="6">
+          <label class="fw-bold">email:</label>
+          <input
+            cFormControl
+            formControlName="email"
+            type="text"
+            placeholder="Ingrese el tipo de documento"
+            class="form-control"
+          />
+        </c-col>
+
+        <c-col md="6">
+          <label class="fw-bold">phone:</label>
+          <input
+            cFormControl
+            formControlName="phone"
+            type="text"
+            placeholder="Ingrese el número de documento"
+            class="form-control"
+          />
+        </c-col>
+
+      </c-row>
+    </form>
+
+    <div class="d-flex justify-content-end mt-4 gap-3">
+      <button (click)="goBack()" cButton color="danger">
+        <c-icon name="cil-backspace"></c-icon> Atrás
+      </button>
+      <button (click)="save()" cButton color="primary">
+        <c-icon name="cil-save"></c-icon> Guardar
+      </button>
+    </div>
+  </c-card-body>
+</c-card>

@@ -1,0 +1,52 @@
+<router-outlet></router-outlet>
+
+<div class="d-flex justify-content-between align-items-center my-3">
+  <h5 class="text-primary fw-bold">📋 Lista de Clientes</h5>
+  <button (click)="postNewClient()" cButton color="success">
+    <c-icon name="cil-user-plus"></c-icon> Agregar Cliente
+  </button>
+</div>
+
+<c-col xs="12">
+  <c-card class="mb-4">
+    <c-card-header class="bg-light">
+      <strong>Clientes Registrados</strong> <small>Lista actualizada</small>
+    </c-card-header>
+    <c-card-body>
+      <div class="table-responsive">
+        <table cTable class="table table-hover table-bordered">
+          <thead class="table-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Email</th>
+            <th scope="col">phone</th>
+
+            <th scope="col" class="text-center">Opciones</th>
+          </tr>
+          </thead>
+          <tbody>
+            @for (client of clients; track client.id) {
+              <tr>
+                <th scope="row">{{ client.id}}</th>
+
+                <td>{{ client.name }}</td>
+                <td>{{ client.email }}</td>
+                <td>{{ client.phone }}</td>
+
+                <td class="text-center">
+                  <button (click)="goEdit(client.id)" cButton color="warning" class="me-2">
+                    <c-icon name="cil-pencil"></c-icon> Editar
+                  </button>
+                  <button (click)="goDelete(client.id)" cButton color="danger">
+                    <c-icon name="cil-trash"></c-icon> Eliminar
+                  </button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </c-card-body>
+  </c-card>
+</c-col>

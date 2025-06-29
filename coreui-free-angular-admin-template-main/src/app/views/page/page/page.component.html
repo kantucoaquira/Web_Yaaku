@@ -1,26 +1,11 @@
-
 <app-header></app-header>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+<app-hero></app-hero>
+<app-categoria></app-categoria>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto p-6">
-    <div *ngFor="let hotel of hoteles" class="relative rounded-3xl p-6 bg-gradient-to-br from-indigo-100 via-indigo-200 to-indigo-300 overflow-hidden shadow-md">
+<app-alojamiento></app-alojamiento>
+<app-experiencia></app-experiencia>
+<link href="src/app/views/page/page/page.component.scss" rel="stylesheet">
 
-    <span class="bg-white text-indigo-500 text-xs font-semibold px-3 py-1 rounded-full absolute top-4 left-4 shadow">
-      {{ hotel.id }}
-    </span>
-
-      <h2 class="text-xl font-bold text-gray-800 mt-12">{{ hotel.name }}</h2>
-      <p class="text-gray-600 text-sm mt-1">{{ hotel.address }}</p>
-      <p class="text-gray-600 text-sm">{{ hotel.phone }}</p>
-      <p class="text-gray-700 text-sm mt-2">{{ hotel.description }}</p>
-
-      <a href="#" class="mt-4 inline-block text-sm font-medium text-gray-800 hover:underline">
-        Learn more →
-      </a>
-
-      <!-- Imagen decorativa -->
-      <img [src]="hotel.imageUrl" alt="image" class="absolute right-4 bottom-4 w-20 h-20 opacity-30 pointer-events-none" />
-    </div>
-  </div>
-
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto p-6">
 </div>
+<app-footer></app-footer>

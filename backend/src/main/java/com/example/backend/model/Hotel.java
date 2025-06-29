@@ -3,6 +3,8 @@ package com.example.backend.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name="hotels")
 @Getter @Setter
@@ -18,4 +20,6 @@ public class Hotel {
     private String phone;
     private String description;
     private String imageUrl;
+    private BigDecimal price;
+    private String category;
 }

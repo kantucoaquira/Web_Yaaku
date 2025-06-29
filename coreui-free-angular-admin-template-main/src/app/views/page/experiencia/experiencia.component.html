@@ -1,0 +1,33 @@
+<section id="explorar" class="py-20 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="section-title">Experiencias para explorar</h2>
+    <div class="experience-grid">
+      <!-- Tarjeta dinámica -->
+      <div *ngFor="let exp of experiencias"
+           class="card-hover bg-white rounded-2xl overflow-hidden shadow-lg">
+        <!-- Imagen (icono por defecto si no hay imagen) -->
+        <div class="h-56 bg-gradient-to-r from-yellow-400 to-orange-400 flex items-center justify-center">
+          <img [src]="exp.imageUrl" alt="{{ exp.nombre }}" class="w-full h-full object-cover" *ngIf="exp.imageUrl; else iconoDefecto">
+          <ng-template #iconoDefecto>
+            <i class="fas fa-concierge-bell text-white text-6xl"></i> <!-- Icono por defecto -->
+          </ng-template>
+        </div>
+
+        <!-- Información -->
+        <div class="p-6">
+          <h3 class="font-bold text-xl mb-3">{{ exp.nombre }}</h3>
+          <p class="text-gray-600 mb-4 leading-relaxed">{{ exp.descripcion }}</p>
+          <div class="flex justify-between items-center">
+            <span class="font-bold text-lg">
+              S/ {{ exp.precio }}
+              <span class="text-sm font-normal text-gray-600">/ persona</span>
+            </span>
+            <span class="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
+              {{ exp.duracion }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

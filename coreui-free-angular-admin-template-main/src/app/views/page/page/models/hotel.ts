@@ -5,4 +5,6 @@ export class Hotel {
   phone?: string;
   description?: string;
   imageUrl?: string;
+  category?: number | string;
+  price?: number;
 }

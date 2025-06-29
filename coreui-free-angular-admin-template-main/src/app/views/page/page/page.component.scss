@@ -1,0 +1,35 @@
+/* === TARJETAS DE CATEGORÍA === */
+.category-card {
+  padding: 2rem;
+  border-radius: 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.category-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.category-card i {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.category-card h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.category-card p {
+  font-size: 0.95rem;
+  opacity: 0.9;
+  line-height: 1.4;
+}

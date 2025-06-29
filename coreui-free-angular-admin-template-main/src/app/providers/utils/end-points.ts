@@ -10,6 +10,7 @@ export const ENS_POINTS = {
   },
   services: {
     hoteles: 'hotels',
+    experiencias: 'experiencias',
   },
   auth: {
     login: 'auth/login',

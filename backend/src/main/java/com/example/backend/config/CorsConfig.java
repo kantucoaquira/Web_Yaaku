@@ -13,14 +13,25 @@ public class CorsConfig {
 
     @Bean
     public CorsFilter corsFilter() {
-        CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOriginPatterns(List.of("http://localhost:*")); // para Angular
-        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        config.setAllowedHeaders(List.of("*")); // permite todos los headers
-        config.setAllowCredentials(true); // permite enviar cookies y Authorization
+        CorsConfiguration globalConfig = new CorsConfiguration();
+        globalConfig.setAllowedOriginPatterns(List.of("http://localhost:*")); // para Angular
+        globalConfig.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        globalConfig.setAllowedHeaders(List.of("*"));
+        globalConfig.setAllowCredentials(true);
+
+        // Configuración específica para experiencias
+        CorsConfiguration experienciasConfig = new CorsConfiguration();
+        experienciasConfig.setAllowedOrigins(List.of("http://localhost:4200"));
+        experienciasConfig.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        experienciasConfig.setAllowedHeaders(List.of("*"));
+        experienciasConfig.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", config);
+        // mantiene la configuración global para todo
+        source.registerCorsConfiguration("/**", globalConfig);
+        // anula solo para experiencias
+        source.registerCorsConfiguration("/api/experiencias/**", experienciasConfig);
+
         return new CorsFilter(source);
     }
 }

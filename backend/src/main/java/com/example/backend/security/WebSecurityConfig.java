@@ -19,8 +19,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.List;
 
 @Configuration
 @RequiredArgsConstructor
@@ -38,10 +42,8 @@ public class WebSecurityConfig {
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-
         authProvider.setUserDetailsService(userDetailsService);
         authProvider.setPasswordEncoder(passwordEncoder());
-
         return authProvider;
     }
 
@@ -52,15 +54,16 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf(csrf -> csrf.disable())
+        http
+                .cors(cors -> cors.configurationSource(corsConfigurationSource())) // aquí inyectamos el cors
+                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/clients/**").permitAll()
                         .requestMatchers("/api/hotels/**").permitAll()
                         .requestMatchers("/uploads/**").permitAll()
-                        .requestMatchers("/api/users/**").hasRole("SUPERADMIN") // Solo superadmins para usuarios
-                        .requestMatchers("/api/hotels/**").hasAnyRole("SUPERADMIN", "ADMIN") // Hoteles para admin y superadmin
-
+                        .requestMatchers("/api/users/**").hasRole("SUPERADMIN")
+                        .requestMatchers("/api/hotels/**").hasAnyRole("SUPERADMIN", "ADMIN")
                         .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider())
@@ -69,4 +72,28 @@ public class WebSecurityConfig {
         return http.build();
     }
 
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration globalConfig = new CorsConfiguration();
+        globalConfig.setAllowedOrigins(List.of("http://localhost:4200"));
+        globalConfig.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        globalConfig.setAllowedHeaders(List.of("*"));
+        globalConfig.setAllowCredentials(true);
+
+        CorsConfiguration experienciasConfig = new CorsConfiguration();
+        experienciasConfig.setAllowedOrigins(List.of("http://localhost:4200"));
+        experienciasConfig.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        experienciasConfig.setAllowedHeaders(List.of("*"));
+        experienciasConfig.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+
+        // patrón general para no romper hoteles ni otros
+        source.registerCorsConfiguration("/**", globalConfig);
+
+        // patrón específico para experiencias
+        source.registerCorsConfiguration("/api/experiencias/**", experienciasConfig);
+
+        return source;
+    }
 }
